@@ -18,6 +18,10 @@ cd Angular-Simple-CRUD
 プロジェクトが依存するパッケージをインストールします。
 
 ```bash
+・Angular
+docker-compose exec node bash
+cd angular-simple-crud
+npm install
 
 ```
 
@@ -44,5 +48,7 @@ cd Angular-Simple-CRUD
 開発サーバーを起動して、アプリケーションが正しく動作することを確認します。
 
 ```bash
-
+docker-compose exec node bash
+cd angular-simple-crud
+ng serve --host 0.0.0.0
 ```
