@@ -10,7 +10,7 @@ export const routes: Routes = [
   // ルーティング設定をここに追加
   { path: '', component: BlogListComponent },
   { path: 'blog/create', component: BlogCreateComponent },
-  // { path: '/blog/edit', component: BlogEditComponent },
-  // { path: '/blog/detail', component: BlogDetailComponent },
+  { path: 'blog/detail/:id', component: BlogDetailComponent },
+  { path: 'blog/edit', component: BlogEditComponent },
 ];
 
