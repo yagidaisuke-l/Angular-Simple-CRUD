@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-blog-create',
@@ -18,20 +19,24 @@ export class BlogCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.blogForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      content: ['', [Validators.required, Validators.minLength(10)]]
+      title: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   onSubmit(): void {
     if (this.blogForm.valid) {
       console.log(this.blogForm.value);
-      this.http.put('http://localhost:8001/create', this.blogForm.value)
-        .subscribe(response => {
-          console.log('登録成功:', response);
-        }, error => {
-          console.error('登録失敗:', error);
-        });
+      this.http.post('http://localhost:8001/create', this.blogForm.value)
+        .subscribe({
+          next: (response: { status: number }) => {
+            if (response.status === 200) {
+      console.log('登録成功:', response);
+    }
+  },
+  error: (error) => {
+    console.error('登録失敗:', error);
+  }
+} as Partial<Observer<Object>>);
     }
   }
 }

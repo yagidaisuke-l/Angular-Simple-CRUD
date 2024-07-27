@@ -171,35 +171,36 @@ router.put('/update', async (req, res) => {
 
 /**
 * @swagger
-* /delete:
+* /delete/{id}:
 *   delete:
 *     summary: ブログ削除
-*     requestBody:
-*       required: true
-*       content:
-*         application/json:
-*           schema:
-*             type: object
-*             properties:
-*               id:
-*                 type: integer
-*                 description: The blog ID
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: integer
+*         description: ブログID
 *     responses:
 *       200:
 *         description: ブログを削除する
 *       500:
 *         description: データベース接続エラー
 */
-router.put('/delete', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const connection = await mysql.createConnection(dbConfig);
     const [result] = await connection.execute('DELETE FROM blog_title WHERE id = ?', [id]);
     res.set({ 'Access-Control-Allow-Origin': '*' });
     res.status(200).send('ブログを削除しました');
     await connection.end();
   } catch (error) {
-    res.status(500).send('データベース接続エラー' + error);
+    if (res.status === 404) {
+      console.log(result);
+    } else {
+      res.status(500).send('データベース接続エラー' + error);
+    }
   }
 });
 

@@ -31,6 +31,24 @@ export class BlogListComponent implements OnInit {
       );
   }
 
+deleteBlog(id: number) {
+    console.log('削除処理実行');
+    this.http.delete('http://localhost:8001/delete/' + id)
+      .subscribe(
+        response => {
+          console.log('削除が成功しました。レスポンス:', response);
+          // 成功時の処理を追加
+          // 例: ユーザーに成功メッセージを表示する
+          this.getBlogs();
+        },
+        error => {
+          console.error('削除中にエラーが発生しました。エラー:', error);
+          // エラー処理を追加
+          // 例: ユーザーにエラーメッセージを表示する
+        }
+      );
+}
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // クライアント側またはネットワークエラー
