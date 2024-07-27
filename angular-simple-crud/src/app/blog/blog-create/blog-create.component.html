@@ -1,14 +1,22 @@
 <div class="w-50 mx-auto py-5">
-  <form action="" method="post">
+  <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label class="control-label">タイトル</label>
-      <input class="form-control" type="text">
+      <input class="form-control" formControlName="title" type="text">
+      <div *ngIf="blogForm?.get('title')?.invalid && blogForm?.get('title')?.touched" class="text-danger">
+        <div *ngIf="blogForm?.get('title')?.errors?.['required']">タイトルは必須です。</div>
+        <div *ngIf="blogForm?.get('title')?.errors?.['minlength']">タイトルは3文字以上でなければなりません。</div>
+      </div>
     </div>
     <div class="form-group">
       <label class="control-label d-block">内容</label>
-      <textarea name="" class="w-100"></textarea><!-- /# -->
+      <textarea formControlName="content" class="w-100"></textarea>
+      <div *ngIf="blogForm?.get('content')?.invalid && blogForm?.get('content')?.touched" class="text-danger">
+        <div *ngIf="blogForm?.get('content')?.errors?.['required']">内容は必須です。</div>
+        <div *ngIf="blogForm?.get('content')?.errors?.['minlength']">内容は10文字以上でなければなりません。</div>
+      </div>
     </div>
-    <button class="btn btn-info w-100">投稿</button>
+    <button class="btn btn-info w-100" type="submit" [disabled]="blogForm.invalid">投稿</button>
   </form>
   <a href="/">一覧画面へ</a>
 </div><!-- /.w-50 -->
