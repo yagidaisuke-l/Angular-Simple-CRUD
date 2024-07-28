@@ -1,9 +1,12 @@
-CREATE DATABASE IF NOT EXISTS blog_db_local;
+CREATE DATABASE IF NOT EXISTS blog_app_local;
 
-USE blog_db_local;
+GRANT ALL PRIVILEGES ON blog_app_local.* TO 'user'@'%';
+FLUSH PRIVILEGES;
+
+USE blog_app_local;
 
 CREATE TABLE blog_title (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255)
 );
 
