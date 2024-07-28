@@ -14,34 +14,28 @@ git clone https://github.com/yagidaisuke-l/Angular-Simple-CRUD.git
 cd Angular-Simple-CRUD
 ```
 
-### 2. 依存関係のインストール
+
+### 2. コンテナ起動
+
+```bash
+cp .env.local .env
+docker-compose up -d --build
+```
+
+### 3. 依存関係のインストール
 
 プロジェクトが依存するパッケージをインストールします。
 
 ```bash
+・MySQL
+docker cp mysql/init/init.sql mysql:/usr/local/src/init.sql
+docker-compose exec db bash
+mysql -u root -proot < /usr/local/src/init.sql
+
 ・Angular
 docker-compose exec node bash
 cd angular-simple-crud
 npm install
-
-```
-
-### 3. 環境設定ファイルの設定
-
-環境に応じた設定ファイルを作成または編集します。
-
-```bash
-
-```
-
-エディタで `.env` ファイルを開き、必要な設定を行ってください。
-
-### 4. データベースのセットアップ
-
-データベースをセットアップし、初期データをロードします。
-
-```bash
-
 ```
 
 ### 5. 開発サーバーの起動
