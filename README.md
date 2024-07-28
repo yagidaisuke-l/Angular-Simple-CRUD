@@ -1,5 +1,6 @@
 # Angularアプリのサンプル
 ![image](./top.png)
+![image](./swagger.png)
 
 ## 動作確認方法
 
