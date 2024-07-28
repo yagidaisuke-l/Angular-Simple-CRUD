@@ -125,7 +125,7 @@ router.post('/create', async (req, res) => {
     const connection = await mysql.createConnection(dbConfig);
     const [result] = await connection.execute('INSERT INTO blog_title (title) VALUES (?)', [title || '記事タイトル無し']);
     res.set({ 'Access-Control-Allow-Origin': '*' });
-    res.status(200).send('ブログを作成しました');
+    res.status(200).json({ message: 'ブログを作成しました',status:200 });
     await connection.end();
   } catch (error) {
     res.status(500).send('データベース接続エラー' + error);
@@ -162,7 +162,7 @@ router.put('/update', async (req, res) => {
     const connection = await mysql.createConnection(dbConfig);
     const [result] = await connection.execute('UPDATE blog_title SET title = ? WHERE id = ?', [title, id]);
     res.set({ 'Access-Control-Allow-Origin': '*' });
-    res.status(200).send('ブログを更新しました');
+    res.status(200).json({ message: 'ブログを更新しました' });
     await connection.end();
   } catch (error) {
     res.status(500).send('データベース接続エラー' + error);
@@ -193,7 +193,7 @@ router.delete('/delete/:id', async (req, res) => {
     const connection = await mysql.createConnection(dbConfig);
     const [result] = await connection.execute('DELETE FROM blog_title WHERE id = ?', [id]);
     res.set({ 'Access-Control-Allow-Origin': '*' });
-    res.status(200).send('ブログを削除しました');
+    res.status(200).json({ message: 'ブログを削除しました' });
     await connection.end();
   } catch (error) {
     if (res.status === 404) {
