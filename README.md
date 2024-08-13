@@ -49,9 +49,3 @@ cd angular-simple-crud
 ng serve --host 0.0.0.0
 http://localhost:4200
 ```
-
-### 補足
-
-Swaggerの確認は以下
-
-http://localhost:8001/api-docs/
